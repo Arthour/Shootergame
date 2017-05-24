@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GameWorld extends JPanel {
-    public Spaceship ship;
+    private Spaceship ship;
     public ArrayList<Bullet> bullets = new ArrayList<>();
     public ArrayList<Bullet> bulletsToAdd = new ArrayList<>();
     public Iterator<Bullet> bulletsToDraw;

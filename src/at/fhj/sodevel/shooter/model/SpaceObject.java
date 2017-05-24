@@ -20,11 +20,11 @@ public class SpaceObject {
         return (int)position.getY();
     }
 
-    public void modX(int x) {
+    void modX(int x) {
         position = new Point(getX() + x, getY());
     }
 
-    public void modY(int y) {
+    void modY(int y) {
         position = new Point(getX(), getY() + y);
     }
 

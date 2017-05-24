@@ -28,12 +28,12 @@ public class GameLoop implements KeyListener, Runnable {
     }
 
     public void spawnBullet() {
-        parent.bulletsToAdd.add(new Bullet(parent.getShip().getX() + 20, parent.getShip().getY(), parent));
+        parent.bulletsToAdd.add(new Bullet(parent.getShip().getX() + 20, parent.getShip().getY()));
     }
 
     public void spawnMissile() {
         if (missileCount > 0) {
-            parent.missiles.add(new Missile(parent.getShip().getX() + 20, parent.getShip().getY(), parent));
+            parent.missiles.add(new Missile(parent.getShip().getX() + 20, parent.getShip().getY()));
             missileCount--;
         }
     }

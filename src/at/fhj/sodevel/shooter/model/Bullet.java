@@ -5,13 +5,11 @@ import at.fhj.sodevel.shooter.view.GameWorld;
 import java.awt.*;
 
 public class Bullet extends NonControllableObjects {
-    public Bullet(int x, int y, GameWorld world) {
+    public Bullet(int x, int y) {
         position = new Point(x, y);
-        this.world = world;
     }
 
-    public Bullet(Point position, GameWorld world) {
+    public Bullet(Point position) {
         this.position = position;
-        this.world = world;
     }
 }

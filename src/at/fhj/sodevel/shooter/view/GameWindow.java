@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow extends JFrame {
-    MainMenu menu;
-    GameWorld world;
+    private MainMenu menu;
+    private GameWorld world;
 
     public GameWindow() {
         super();

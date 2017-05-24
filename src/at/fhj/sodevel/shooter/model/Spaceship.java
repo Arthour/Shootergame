@@ -12,7 +12,7 @@ public class Spaceship extends SpaceObject implements Runnable {
     private int  accelU = 0, accelD = 0, accelL = 0, accelR = 0;
     public boolean isAcceleratingU = false, isAcceleratingD = false, isAcceleratingL = false, isAcceleratingR = false;
     public boolean movingU = false, movingD = false, movingL = false, movingR = false;
-    public int maxHor = 800, maxVer = 1000;
+    private int maxHor = 800, maxVer = 1000;
 
     public Spaceship(int x, int y) {
         position = new Point(x, y);
