@@ -1,7 +1,5 @@
 package at.fhj.sodevel.shooter.view;
 
-import at.fhj.sodevel.shooter.ShooterGame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,7 +1,5 @@
 package at.fhj.sodevel.shooter.controller;
 
-import at.fhj.sodevel.shooter.model.Bullet;
-
 public class BulletSpawnThread implements Runnable {
     private GameLoop parent;
     private BulletThread bt;

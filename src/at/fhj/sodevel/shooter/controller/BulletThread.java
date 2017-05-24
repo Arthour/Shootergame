@@ -3,7 +3,8 @@ package at.fhj.sodevel.shooter.controller;
 import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class BulletThread implements Runnable {
     private GameWorld world;

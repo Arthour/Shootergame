@@ -1,7 +1,5 @@
 package at.fhj.sodevel.shooter.view;
 
-import java.awt.GraphicsDevice;
-
 import javax.swing.*;
 import java.awt.*;
 
