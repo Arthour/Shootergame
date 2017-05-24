@@ -1,8 +1,10 @@
 package at.fhj.sodevel.shooter.view;
 
+import at.fhj.sodevel.shooter.controller.AlienThread;
 import at.fhj.sodevel.shooter.controller.BulletThread;
 import at.fhj.sodevel.shooter.controller.GameLoop;
 import at.fhj.sodevel.shooter.controller.MissileThread;
+import at.fhj.sodevel.shooter.model.Alien;
 import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.model.Missile;
 import at.fhj.sodevel.shooter.model.Spaceship;
@@ -20,8 +22,9 @@ public class GameWorld extends JPanel {
     public ArrayList<Missile> missiles = new ArrayList<>();
     public ArrayList<Missile> missilesToAdd = new ArrayList<>();
     public Iterator<Missile> missilesToDraw;
-
-    public BulletThread bt;
+    public ArrayList<Alien> aliens = new ArrayList<>();
+    public ArrayList<Alien> aliensToAdd = new ArrayList<>();
+    public Iterator<Alien> aliensToDraw;
 
 
     public GameWorld(GameWindow parent) {
@@ -36,8 +39,9 @@ public class GameWorld extends JPanel {
 
         this.setVisible(true);
 
-        new Thread(bt = new BulletThread(this)).start();
+        new Thread(new BulletThread(this)).start();
         new Thread(new MissileThread(this)).start();
+        new Thread(new AlienThread(this)).start();
 
         this.addKeyListener(new GameLoop(this));
     }
@@ -60,6 +64,10 @@ public class GameWorld extends JPanel {
         while (missilesToDraw.hasNext()) {
             Missile m = missilesToDraw.next();
             g2.drawString("->", m.getX(), m.getY());
+        }
+        while (aliensToDraw.hasNext()) {
+            Alien a = aliensToDraw.next();
+            g2.drawString("<-:(", a.getX(), a.getY());
         }
     }
 }

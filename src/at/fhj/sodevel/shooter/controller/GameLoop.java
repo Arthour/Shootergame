@@ -1,5 +1,6 @@
 package at.fhj.sodevel.shooter.controller;
 
+import at.fhj.sodevel.shooter.model.Alien;
 import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.model.Missile;
 import at.fhj.sodevel.shooter.view.GameWorld;
@@ -21,6 +22,7 @@ public class GameLoop implements KeyListener, Runnable {
     public GameLoop(GameWorld parent) {
         this.parent = parent;
         new Thread(this).start();
+        new Thread(new AlienSpawnThread(this)).start();
     }
 
     public boolean isSpawningBullet() {
@@ -36,6 +38,14 @@ public class GameLoop implements KeyListener, Runnable {
             parent.missiles.add(new Missile(parent.getShip().getX() + 20, parent.getShip().getY()));
             missileCount--;
         }
+    }
+
+    public void spawnAlien(int y) {
+        parent.aliensToAdd.add(new Alien(parent.getWidth() + 10, y));
+    }
+
+    public GameWorld getParent() {
+        return parent;
     }
 
     @Override
@@ -60,7 +70,7 @@ public class GameLoop implements KeyListener, Runnable {
                     break;
                 case KeyEvent.VK_SPACE:
                     if (!spawningBullet) {
-                        new Thread(new BulletSpawnThread(this, parent.bt)).start();
+                        new Thread(new BulletSpawnThread(this)).start();
                         spawningBullet = true;
                     }
                     break;
