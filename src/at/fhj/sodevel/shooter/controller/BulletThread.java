@@ -3,8 +3,7 @@ package at.fhj.sodevel.shooter.controller;
 import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class BulletThread implements Runnable {
     private GameWorld world;
@@ -15,7 +14,7 @@ public class BulletThread implements Runnable {
 
     @Override
     public void run() {
-        for (;;) {
+        while (true) {
             try {
                 world.bullets.addAll(world.bulletsToAdd);
                 world.bulletsToAdd.clear();

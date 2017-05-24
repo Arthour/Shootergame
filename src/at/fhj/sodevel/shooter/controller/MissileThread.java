@@ -15,7 +15,7 @@ public class MissileThread implements Runnable {
 
     @Override
     public void run() {
-        for (;;) {
+        while (true) {
             try {
                 world.missiles.addAll(world.missilesToAdd);
                 world.missilesToAdd.clear();
