@@ -2,12 +2,9 @@ package at.fhj.sodevel.shooter.controller;
 
 public class BulletSpawnThread implements Runnable {
     private GameLoop parent;
-    private BulletThread bt;
 
-
-    public BulletSpawnThread(GameLoop parent, BulletThread bt) {
+    public BulletSpawnThread(GameLoop parent) {
         this.parent = parent;
-        this.bt = bt;
     }
 
     @Override
