@@ -1,7 +1,5 @@
 package at.fhj.sodevel.shooter.controller;
 
-import at.fhj.sodevel.shooter.view.GameWorld;
-
 import java.util.Random;
 
 public class AlienSpawnThread implements Runnable {
@@ -32,7 +30,7 @@ public class AlienSpawnThread implements Runnable {
         } else if (rand <= screenMin + modifier) {
             return screenMin + modifier;
         } else {
-            return rand + modifier;
+            return rand;
         }
     }
 }
