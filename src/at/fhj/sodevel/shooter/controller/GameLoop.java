@@ -18,7 +18,6 @@ public class GameLoop implements KeyListener, Runnable {
 
     private int missileCount = 3;
 
-
     public GameLoop(GameWorld parent) {
         this.parent = parent;
         new Thread(this).start();
@@ -116,7 +115,7 @@ public class GameLoop implements KeyListener, Runnable {
             try {
                 parent.revalidate();
                 parent.repaint();
-                Thread.sleep(10);
+                Thread.sleep(16, 666);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
