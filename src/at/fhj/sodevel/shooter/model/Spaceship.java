@@ -19,6 +19,7 @@ public class Spaceship extends SpaceObject implements Runnable {
     public Spaceship(int x, int y, GameWorld world) {
         position = new Point(x, y);
         this.world = world;
+        bounds = new Rectangle(x, y-10,22,11);
     }
 
     @Override
@@ -132,26 +133,25 @@ public class Spaceship extends SpaceObject implements Runnable {
     public void move(String direction) {
         switch (direction) {
             case "UP":
-                if (world.getY() + 20 < getY()) {
+                if (world.getY() + 10 < bounds.getY()) {
                     modY(-1);
                 }
                 break;
             case "DOWN":
-                if (world.getHeight() - 10 > getY()) {
+                if (world.getHeight() - 10 > bounds.getY() + bounds.getHeight()) {
                     modY(1);
                 }
                 break;
             case "RIGHT":
-                if (world.getWidth() - 30 > getX()) {
+                if (world.getWidth() - 10 > bounds.getX() + bounds.getWidth()) {
                     modX(1);
                 }
                 break;
             case "LEFT":
-                if (world.getX() + 10 < getX()) {
+                if (world.getX() + 10 < bounds.getX()) {
                     modX(-1);
                 }
         }
-
-
+        bounds.setLocation(getX(), getY() - 10);
     }
 }

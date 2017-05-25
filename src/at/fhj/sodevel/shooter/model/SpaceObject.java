@@ -7,6 +7,7 @@ import java.awt.*;
 public class SpaceObject {
     protected Point position;
     protected GameWorld world;
+    public Rectangle bounds;
 
     public Point getPosition() {
         return position;
