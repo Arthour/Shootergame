@@ -32,6 +32,7 @@ public class AlienThread implements Runnable {
                     }
                 }
                 world.aliensToDraw = temp.iterator();
+                world.aliensToCheckCollision = temp.iterator();
                 Thread.sleep(12);
             } catch (InterruptedException e) {
                 e.printStackTrace();

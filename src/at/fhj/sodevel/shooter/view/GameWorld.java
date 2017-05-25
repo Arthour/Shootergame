@@ -24,7 +24,7 @@ public class GameWorld extends JPanel {
 
     public ArrayList<Alien> aliens = new ArrayList<>();
     public ArrayList<Alien> aliensToAdd = new ArrayList<>();
-    public Iterator<Alien> aliensToDraw;
+    public Iterator<Alien> aliensToDraw, aliensToCheckCollision;
 
     public GameWorld(GameWindow parent) {
         super();
