@@ -1,7 +1,6 @@
 package at.fhj.sodevel.shooter.controller;
 
 import at.fhj.sodevel.shooter.model.Alien;
-import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class AlienThread implements Runnable {
                     }
                 }
                 world.aliensToDraw = temp.iterator();
-                Thread.sleep(5);
+                Thread.sleep(12);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
