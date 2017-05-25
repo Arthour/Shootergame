@@ -4,6 +4,7 @@ import at.fhj.sodevel.shooter.controller.SpaceshipMovementDown;
 import at.fhj.sodevel.shooter.controller.SpaceshipMovementLeft;
 import at.fhj.sodevel.shooter.controller.SpaceshipMovementRight;
 import at.fhj.sodevel.shooter.controller.SpaceshipMovementUp;
+import at.fhj.sodevel.shooter.view.GameWorld;
 
 import java.awt.*;
 
@@ -13,9 +14,11 @@ public class Spaceship extends SpaceObject implements Runnable {
     public boolean isAcceleratingU = false, isAcceleratingD = false, isAcceleratingL = false, isAcceleratingR = false;
     public boolean movingU = false, movingD = false, movingL = false, movingR = false;
     private int maxHor = 800, maxVer = 1000;
+    private GameWorld world;
 
-    public Spaceship(int x, int y) {
+    public Spaceship(int x, int y, GameWorld world) {
         position = new Point(x, y);
+        this.world = world;
     }
 
     @Override
@@ -129,16 +132,24 @@ public class Spaceship extends SpaceObject implements Runnable {
     public void move(String direction) {
         switch (direction) {
             case "UP":
-                modY(-1);
+                if (world.getY() + 20 < getY()) {
+                    modY(-1);
+                }
                 break;
             case "DOWN":
-                modY(1);
+                if (world.getHeight() - 10 > getY()) {
+                    modY(1);
+                }
                 break;
             case "RIGHT":
-                modX(1);
+                if (world.getWidth() - 30 > getX()) {
+                    modX(1);
+                }
                 break;
             case "LEFT":
-                modX(-1);
+                if (world.getX() + 10 < getX()) {
+                    modX(-1);
+                }
         }
 
 
