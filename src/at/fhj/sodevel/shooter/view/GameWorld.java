@@ -8,23 +8,17 @@ import at.fhj.sodevel.shooter.model.Spaceship;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameWorld extends JPanel {
     private Spaceship ship;
 
-    public ArrayList<Bullet> bullets = new ArrayList<>();
-    public ArrayList<Bullet> bulletsToAdd = new ArrayList<>();
-    public Iterator<Bullet> bulletsToDraw;
-
-    public ArrayList<Missile> missiles = new ArrayList<>();
-    public ArrayList<Missile> missilesToAdd = new ArrayList<>();
-    public Iterator<Missile> missilesToDraw;
-
-    public ArrayList<Alien> aliens = new ArrayList<>();
-    public ArrayList<Alien> aliensToAdd = new ArrayList<>();
-    public Iterator<Alien> aliensToDraw, aliensToCheckCollision;
+    public List<Bullet> bullets = Collections.synchronizedList(new LinkedList<Bullet>());
+    public List<Missile> missiles = Collections.synchronizedList(new LinkedList<Missile>());
+    public List<Alien> aliens = Collections.synchronizedList(new LinkedList<Alien>());
 
     public GameWorld(GameWindow parent) {
         super();
@@ -59,19 +53,28 @@ public class GameWorld extends JPanel {
 
         g2.drawString("(=>", ship.getX(), ship.getY());
         //g2.drawRect((int)ship.bounds.getX(), (int)ship.bounds.getY(), (int)ship.bounds.getWidth(), (int)ship.bounds.getHeight());
-        while (bulletsToDraw.hasNext()) {
-            Bullet b = bulletsToDraw.next();
-            g2.drawString("-", b.getX(), b.getY());
-        }
-        while (missilesToDraw.hasNext()) {
-            Missile m = missilesToDraw.next();
-            g2.drawString("->", m.getX(), m.getY());
-        }
-        while (aliensToDraw.hasNext()) {
-            Alien a = aliensToDraw.next();
-            g2.drawString("<-:(", a.getX(), a.getY());
-            //g2.drawRect((int)a.bounds.getX(), (int)a.bounds.getY(), (int)a.bounds.getWidth(), (int)a.bounds.getHeight());
 
+        synchronized(bullets) {
+            Iterator<Bullet> i = bullets.iterator();
+            while (i.hasNext()) {
+                Bullet b = i.next();
+                g2.drawString("-", b.getX(), b.getY());
+            }
+        }
+        synchronized(missiles) {
+            Iterator<Missile> i = missiles.iterator();
+            while (i.hasNext()) {
+                Missile m = i.next();
+                g2.drawString("->", m.getX(), m.getY());
+            }
+        }
+        synchronized(aliens) {
+            Iterator<Alien> i = aliens.iterator();
+            while (i.hasNext()) {
+                Alien a = i.next();
+                g2.drawString("<=:(", a.getX(), a.getY());
+                //g2.drawRect((int)a.bounds.getX(), (int)a.bounds.getY(), (int)a.bounds.getWidth(), (int)a.bounds.getHeight());
+            }
         }
     }
 }

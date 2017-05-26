@@ -3,7 +3,6 @@ package at.fhj.sodevel.shooter.controller;
 import at.fhj.sodevel.shooter.model.Alien;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AlienThread implements Runnable {
@@ -17,22 +16,18 @@ public class AlienThread implements Runnable {
     public void run() {
         while (true) {
             try {
-                world.aliens.addAll(world.aliensToAdd);
-                world.aliensToAdd.clear();
-                Iterator<Alien> iter = world.aliens.iterator();
-                ArrayList<Alien> temp = new ArrayList<>();
-                while (iter.hasNext()) {
-                    Alien a = iter.next();
+                synchronized(world.aliens) {
+                    Iterator<Alien> i = world.aliens.iterator();
+                    while (i.hasNext()) {
+                        Alien a = i.next();
 
-                    if (a.getX() > world.getParent().getX() - 10) {
-                        a.moveBackward();
-                        temp.add(a);
-                    } else {
-                        iter.remove();
+                        if (a.getX() > world.getParent().getX() - 10) {
+                            a.moveBackward();
+                        } else {
+                            i.remove();
+                        }
                     }
                 }
-                world.aliensToDraw = temp.iterator();
-                world.aliensToCheckCollision = temp.iterator();
                 Thread.sleep(12);
             } catch (InterruptedException e) {
                 e.printStackTrace();

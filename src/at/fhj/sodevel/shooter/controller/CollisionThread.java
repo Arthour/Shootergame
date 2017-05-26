@@ -4,6 +4,8 @@ import at.fhj.sodevel.shooter.model.Alien;
 import at.fhj.sodevel.shooter.model.SpaceObject;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
+import java.util.Iterator;
+
 public class CollisionThread implements Runnable {
     GameWorld world;
 
@@ -14,13 +16,19 @@ public class CollisionThread implements Runnable {
     public void run() {
         while (true) {
             try {
-                while (world.aliensToCheckCollision.hasNext()) {
-                    Alien a = world.aliensToCheckCollision.next();
-                    if (isColliding(world.getShip(), a)) {
-                        //TODO: damage player
+                synchronized(world.aliens) {
+                    Iterator<Alien> i = world.aliens.iterator();
+                    while (i.hasNext()) {
+                        Alien a = i.next();
+
+                        if (isColliding(world.getShip(), a)) {
+                            world.getShip().decreaseHealth(5);
+                            i.remove();
+                        }
                     }
-                    //TODO: check collision for bullets/missiles and aliens
                 }
+                //TODO: check collision for bullets/missiles and aliens
+
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();

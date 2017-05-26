@@ -29,7 +29,7 @@ public class GameLoop implements KeyListener, Runnable {
     }
 
     public void spawnBullet() {
-        parent.bulletsToAdd.add(new Bullet(parent.getShip().getX() + 20, parent.getShip().getY()));
+        parent.bullets.add(new Bullet(parent.getShip().getX() + 20, parent.getShip().getY()));
     }
 
     public void spawnMissile() {
@@ -40,7 +40,7 @@ public class GameLoop implements KeyListener, Runnable {
     }
 
     public void spawnAlien(int y) {
-        parent.aliensToAdd.add(new Alien(parent.getWidth() + 10, y));
+        parent.aliens.add(new Alien(parent.getWidth() + 10, y));
     }
 
     public GameWorld getParent() {

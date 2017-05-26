@@ -3,7 +3,7 @@ package at.fhj.sodevel.shooter.controller;
 import at.fhj.sodevel.shooter.model.Bullet;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
-import java.util.*;
+import java.util.Iterator;
 
 public class BulletThread implements Runnable {
     private GameWorld world;
@@ -16,21 +16,18 @@ public class BulletThread implements Runnable {
     public void run() {
         while (true) {
             try {
-                world.bullets.addAll(world.bulletsToAdd);
-                world.bulletsToAdd.clear();
-                Iterator<Bullet> iter = world.bullets.iterator();
-                ArrayList<Bullet> temp = new ArrayList<>();
-                while (iter.hasNext()) {
-                    Bullet b = iter.next();
+                synchronized(world.bullets) {
+                    Iterator<Bullet> i = world.bullets.iterator();
+                    while (i.hasNext()) {
+                        Bullet b = i.next();
 
-                    if (b.getX() < world.getParent().getWidth() + 10) {
-                        b.moveForward();
-                        temp.add(b);
-                    } else {
-                        iter.remove();
+                        if (b.getX() < world.getParent().getWidth() + 10) {
+                            b.moveForward();
+                        } else {
+                            i.remove();
+                        }
                     }
                 }
-                world.bulletsToDraw = temp.iterator();
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
