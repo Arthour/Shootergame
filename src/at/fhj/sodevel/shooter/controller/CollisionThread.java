@@ -7,9 +7,11 @@ import at.fhj.sodevel.shooter.model.SpaceObject;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class CollisionThread implements Runnable {
     GameWorld world;
+    Random r = new Random();
 
     public CollisionThread(GameWorld world) {
         this.world = world;
@@ -34,7 +36,7 @@ public class CollisionThread implements Runnable {
 
                                 if (isColliding(m, a)) {
                                     iM.remove();
-                                    a.decreaseHealth(5);
+                                    a.decreaseHealth(3);
                                     if (a.getHealth() <= 0) {
                                         iA.remove();
                                     }
@@ -49,9 +51,13 @@ public class CollisionThread implements Runnable {
 
                                 if (isColliding(b, a)) {
                                     iB.remove();
-                                    a.decreaseHealth(1);
+                                    a.decreaseHealth(r.nextInt(1) + 1);
                                     if (a.getHealth() <= 0) {
-                                        iA.remove();
+                                        try {
+                                            iA.remove();
+                                        } catch (IllegalStateException e) {
+                                            System.out.println(e);
+                                        }
                                     }
                                 }
 
