@@ -14,7 +14,13 @@ public class Spaceship extends SpaceObject implements Runnable {
     public boolean isAcceleratingU = false, isAcceleratingD = false, isAcceleratingL = false, isAcceleratingR = false;
     public boolean movingU = false, movingD = false, movingL = false, movingR = false;
     private int maxHor = 800, maxVer = 1000;
+
+    //Health
+    private int health = 100;
+
+    //General
     private GameWorld world;
+
 
     public Spaceship(int x, int y, GameWorld world) {
         position = new Point(x, y);
@@ -153,5 +159,24 @@ public class Spaceship extends SpaceObject implements Runnable {
                 }
         }
         bounds.setLocation(getX(), getY() - 10);
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void increaseHealth(int amount) {
+        if (health + amount <= 100) {
+            health += amount;
+        } else if (health + amount > 100) {
+            health = 100;
+        }
+    }
+
+    public void decreaseHealth(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            //TODO: Gameover
+        }
     }
 }
