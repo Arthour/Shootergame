@@ -13,7 +13,8 @@ public class Spaceship extends SpaceObject implements Runnable {
     private int  accelU = 0, accelD = 0, accelL = 0, accelR = 0;
     public boolean isAcceleratingU = false, isAcceleratingD = false, isAcceleratingL = false, isAcceleratingR = false;
     public boolean movingU = false, movingD = false, movingL = false, movingR = false;
-    private int maxHor = 800, maxVer = 1000;
+    private int maxHor = 900, maxVer = 1000;
+    private int modificator = 3;
 
     //Health
     private int health = 100;
@@ -33,12 +34,12 @@ public class Spaceship extends SpaceObject implements Runnable {
         while (true) {
             try {
                 if (isAcceleratingU) {
-                    if(accelU < maxVer / 10) {
-                        accelU = maxVer / 10;
-                    } else if(accelU * 1.015F > maxVer) {
+                    if(accelU < maxVer / modificator) {
+                        accelU = maxVer / modificator;
+                    } else if(accelU * 1.015F + 1 >= maxVer) {
                         accelU = maxVer;
-                    } else if(accelU >= maxVer / 10 && accelU <= maxVer) {
-                        accelU = Math.round(accelU * 1.015F);
+                    } else if(accelU <= maxVer) {
+                        accelU = Math.round(accelU * 1.015F) + 1;
                     }
                     if (!movingU) {
                         new Thread(new SpaceshipMovementUp(this)).start();
@@ -48,17 +49,17 @@ public class Spaceship extends SpaceObject implements Runnable {
                     if (accelU < 25 && accelU > 0) {
                         accelU = 0;
                     } else if (accelU >= 25) {
-                        accelU = Math.round(accelU / 1.1F - 5);
+                        accelU = Math.round(accelU / 1.05F - 5);
                     }
                 }
 
                 if (isAcceleratingD) {
-                    if(accelD < maxVer / 10) {
-                        accelD = maxVer / 10;
-                    } else if(accelD * 1.015F > maxVer) {
+                    if(accelD < maxVer / modificator) {
+                        accelD = maxVer / modificator;
+                    } else if(accelD * 1.015F + 1 >= maxVer) {
                         accelD = maxVer;
-                    } else if(accelD >= maxVer / 10 && accelD <= maxVer) {
-                        accelD = Math.round(accelD * 1.015F);
+                    } else if(accelD <= maxVer) {
+                        accelD = Math.round(accelD * 1.015F) + 1;
                     }
                     if (!movingD) {
                         new Thread(new SpaceshipMovementDown(this)).start();
@@ -68,17 +69,17 @@ public class Spaceship extends SpaceObject implements Runnable {
                     if (accelD < 25 && accelD > 0) {
                         accelD = 0;
                     } else if (accelD >= 25) {
-                        accelD = Math.round(accelD / 1.1F - 2);
+                        accelD = Math.round(accelD / 1.05F - 5);
                     }
                 }
 
                 if (isAcceleratingL) {
-                    if(accelL < maxVer / 10) {
-                        accelL = maxVer / 10;
-                    } else if(accelL * 1.015F > maxHor) {
+                    if(accelL < maxVer / modificator) {
+                        accelL = maxVer / modificator;
+                    } else if(accelL * 1.015F + 2 >= maxHor) {
                         accelL = maxHor;
-                    } else if(accelL >= maxVer / 10 && accelL <= maxHor) {
-                        accelL = Math.round(accelL * 1.015F);
+                    } else if(accelL <= maxHor) {
+                        accelL = Math.round(accelL * 1.015F) + 2;
                     }
                     if (!movingL) {
                         new Thread(new SpaceshipMovementLeft(this)).start();
@@ -93,12 +94,12 @@ public class Spaceship extends SpaceObject implements Runnable {
                 }
 
                 if (isAcceleratingR) {
-                    if(accelR < maxVer / 10) {
-                        accelR = maxVer / 10;
-                    } else if(accelR * 1.015F > maxHor) {
+                    if(accelR < maxVer / modificator) {
+                        accelR = maxVer / modificator;
+                    } else if(accelR * 1.015F + 2 >= maxHor) {
                         accelR = maxHor;
-                    } else if(accelR >= maxVer / 10 && accelR <= maxHor) {
-                        accelR = Math.round(accelR * 1.015F);
+                    } else if(accelR <= maxHor) {
+                        accelR = Math.round(accelR * 1.015F) + 2;
                     }
                     if (!movingR) {
                         new Thread(new SpaceshipMovementRight(this)).start();
