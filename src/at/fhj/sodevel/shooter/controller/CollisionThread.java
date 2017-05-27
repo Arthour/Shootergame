@@ -1,6 +1,8 @@
 package at.fhj.sodevel.shooter.controller;
 
 import at.fhj.sodevel.shooter.model.Alien;
+import at.fhj.sodevel.shooter.model.Bullet;
+import at.fhj.sodevel.shooter.model.Missile;
 import at.fhj.sodevel.shooter.model.SpaceObject;
 import at.fhj.sodevel.shooter.view.GameWorld;
 
@@ -17,18 +19,46 @@ public class CollisionThread implements Runnable {
         while (true) {
             try {
                 synchronized(world.aliens) {
-                    Iterator<Alien> i = world.aliens.iterator();
-                    while (i.hasNext()) {
-                        Alien a = i.next();
+                    Iterator<Alien> iA= world.aliens.iterator();
+                    while (iA.hasNext()) {
+                        Alien a = iA.next();
 
                         if (isColliding(world.getShip(), a)) {
                             world.getShip().decreaseHealth(5);
-                            i.remove();
+                            iA.remove();
+                        }
+                        synchronized (world.missiles) {
+                            Iterator<Missile> iM = world.missiles.iterator();
+                            while (iM.hasNext()) {
+                                Missile m = iM.next();
+
+                                if (isColliding(m, a)) {
+                                    iM.remove();
+                                    a.decreaseHealth(5);
+                                    if (a.getHealth() <= 0) {
+                                        iA.remove();
+                                    }
+                                }
+
+                            }
+                        }
+                        synchronized (world.bullets) {
+                            Iterator<Bullet> iB = world.bullets.iterator();
+                            while (iB.hasNext()) {
+                                Bullet b = iB.next();
+
+                                if (isColliding(b, a)) {
+                                    iB.remove();
+                                    a.decreaseHealth(1);
+                                    if (a.getHealth() <= 0) {
+                                        iA.remove();
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }
-                //TODO: check collision for bullets/missiles and aliens
-
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
