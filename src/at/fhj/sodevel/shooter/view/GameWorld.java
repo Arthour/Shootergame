@@ -59,6 +59,7 @@ public class GameWorld extends JPanel {
             while (i.hasNext()) {
                 Bullet b = i.next();
                 g2.drawString("-", b.getX(), b.getY());
+                //g2.drawRect((int)b.bounds.getX(), (int)b.bounds.getY(), (int)b.bounds.getWidth(), (int)b.bounds.getHeight());
             }
         }
         synchronized(missiles) {
@@ -66,6 +67,7 @@ public class GameWorld extends JPanel {
             while (i.hasNext()) {
                 Missile m = i.next();
                 g2.drawString("->", m.getX(), m.getY());
+                //g2.drawRect((int)m.bounds.getX(), (int)m.bounds.getY(), (int)m.bounds.getWidth(), (int)m.bounds.getHeight());
             }
         }
         synchronized(aliens) {
