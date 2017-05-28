@@ -21,7 +21,7 @@ public class AlienThread implements Runnable {
                     while (i.hasNext()) {
                         Alien a = i.next();
 
-                        if (a.getX() > world.getParent().getX() - 10) {
+                        if (a.getX() > world.getParent().getX() - 30) {
                             a.moveBackward();
                         } else {
                             i.remove();
