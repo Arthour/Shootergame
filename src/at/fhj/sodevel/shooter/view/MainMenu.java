@@ -1,17 +1,19 @@
 package at.fhj.sodevel.shooter.view;
 
+import at.fhj.sodevel.shooter.controller.ViewController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenu extends JPanel implements ActionListener{
-    private GameWindow parent;
+    private ViewController viewController;
 
-    public MainMenu(GameWindow parent) {
+    public MainMenu(ViewController viewController) {
         super();
 
-        this.parent = parent;
+        this.viewController = viewController;
 
         this.setLayout(new GridLayout(3, 1));
 
@@ -32,8 +34,9 @@ public class MainMenu extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "New Game":
-                parent.startGame();
-                this.setVisible(false);
+                viewController.initGameWorld();
+                viewController.showGameWorld();
+                viewController.hideMainMenu();
                 break;
             case "Settings":
                 break;

@@ -20,17 +20,15 @@ public class GameWorld extends JPanel {
     public List<Missile> missiles = Collections.synchronizedList(new LinkedList<Missile>());
     public List<Alien> aliens = Collections.synchronizedList(new LinkedList<Alien>());
 
-    public GameWorld(GameWindow parent) {
+    public GameWorld(GameWindow window) {
         super();
 
-        this.setSize(parent.getSize());
+        this.setSize(window.getSize());
         this.setLayout(new FlowLayout());
         this.setFocusable(true);
 
-        ship = new Spaceship(parent.getWidth() / 2, parent.getHeight() / 2, this);
+        ship = new Spaceship(window.getWidth() / 2, window.getHeight() / 2, this);
         new Thread(ship).start();
-
-        this.setVisible(true);
 
         new Thread(new BulletThread(this)).start();
         new Thread(new MissileThread(this)).start();
@@ -38,7 +36,7 @@ public class GameWorld extends JPanel {
 
         new Thread(new CollisionThread(this)).start();
 
-        this.addKeyListener(new GameLoop(this));
+        this.addKeyListener(new GameLoop(this, window.getViewController()));
     }
 
     public Spaceship getShip() {

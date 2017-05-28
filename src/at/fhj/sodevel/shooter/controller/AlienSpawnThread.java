@@ -15,7 +15,7 @@ public class AlienSpawnThread implements Runnable {
     public void run() {
         while (true) {
             try {
-                parent.spawnAlien(spawnY(parent.getParent().getY(), parent.getParent().getHeight(), 20));
+                parent.spawnAlien(spawnY(parent.getWorld().getY(), parent.getWorld().getHeight(), 20));
                 Thread.sleep(500 + r.nextInt(500));
             } catch (InterruptedException e) {
                 e.printStackTrace();

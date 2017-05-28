@@ -1,11 +1,12 @@
 package at.fhj.sodevel.shooter.view;
 
+import at.fhj.sodevel.shooter.controller.ViewController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow extends JFrame {
-    private MainMenu menu;
-    private GameWorld world;
+    private ViewController viewController = new ViewController(this);
 
     public GameWindow() {
         super();
@@ -31,19 +32,13 @@ public class GameWindow extends JFrame {
     }
 
     private void init() {
-        this.setLayout(new GridBagLayout());
         this.setBackground(Color.black);
-
-        menu = new MainMenu(this);
-        this.add(menu).setVisible(true);
+        viewController.showMainMenu();
 
         this.setVisible(true);
     }
 
-    public void startGame() {
-        world = new GameWorld(this);
-        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-        this.add(world);
+    public ViewController getViewController() {
+        return viewController;
     }
-
 }
