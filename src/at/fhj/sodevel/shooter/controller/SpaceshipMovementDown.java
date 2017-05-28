@@ -13,7 +13,7 @@ public class SpaceshipMovementDown implements Runnable {
         while (ship.getAccelD() > 0 && ship.movingD) {
             try {
                 ship.move("DOWN");
-                Thread.sleep(Math.round(5000 / ship.getAccelD()));
+                Thread.sleep(Math.round(5000 / (ship.getAccelD() + 1)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
