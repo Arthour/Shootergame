@@ -121,19 +121,19 @@ public class Spaceship extends SpaceObject implements Runnable {
         }
     }
 
-    public float getAccelU() {
+    public int getAccelU() {
         return accelU;
     }
 
-    public float getAccelD() {
+    public int getAccelD() {
         return accelD;
     }
 
-    public float getAccelL() {
+    public int getAccelL() {
         return accelL;
     }
 
-    public float getAccelR() {
+    public int getAccelR() {
         return accelR;
     }
 
