@@ -12,14 +12,16 @@ import java.util.Set;
 
 public class GameLoop implements KeyListener, Runnable {
     private final Set<Integer> pressed = new HashSet<>();
-    private GameWorld parent;
+    private GameWorld world;
+    private ViewController viewController;
     private boolean spawningMissile = false;
     private boolean spawningBullet = false;
 
     private int missileCount = 3;
 
-    public GameLoop(GameWorld parent) {
-        this.parent = parent;
+    public GameLoop(GameWorld world, ViewController viewController) {
+        this.world = world;
+        this.viewController = viewController;
         new Thread(this).start();
         new Thread(new AlienSpawnThread(this)).start();
     }
@@ -29,22 +31,22 @@ public class GameLoop implements KeyListener, Runnable {
     }
 
     public void spawnBullet() {
-        parent.bullets.add(new Bullet(parent.getShip().getX() + 20, parent.getShip().getY()));
+        world.bullets.add(new Bullet(world.getShip().getX() + 20, world.getShip().getY()));
     }
 
     public void spawnMissile() {
         if (missileCount > 0) {
-            parent.missiles.add(new Missile(parent.getShip().getX() + 20, parent.getShip().getY()));
+            world.missiles.add(new Missile(world.getShip().getX() + 20, world.getShip().getY()));
             missileCount--;
         }
     }
 
     public void spawnAlien(int y) {
-        parent.aliens.add(new Alien(parent.getWidth() + 10, y));
+        world.aliens.add(new Alien(world.getWidth() + 10, y));
     }
 
-    public GameWorld getParent() {
-        return parent;
+    public GameWorld getWorld() {
+        return world;
     }
 
     @Override
@@ -56,16 +58,16 @@ public class GameLoop implements KeyListener, Runnable {
         for (int key : pressed) {
             switch (key) {
                 case KeyEvent.VK_RIGHT:
-                    parent.getShip().isAcceleratingR = true;
+                    world.getShip().isAcceleratingR = true;
                     break;
                 case KeyEvent.VK_LEFT:
-                    parent.getShip().isAcceleratingL = true;
+                    world.getShip().isAcceleratingL = true;
                     break;
                 case KeyEvent.VK_UP:
-                    parent.getShip().isAcceleratingU = true;
+                    world.getShip().isAcceleratingU = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    parent.getShip().isAcceleratingD = true;
+                    world.getShip().isAcceleratingD = true;
                     break;
                 case KeyEvent.VK_SPACE:
                     if (!spawningBullet) {
@@ -80,8 +82,18 @@ public class GameLoop implements KeyListener, Runnable {
                     }
                     break;
                 case KeyEvent.VK_ESCAPE:
+                    viewController.showIngameMenu();
                     //TODO: pause, open menu
+                    //Semaphore
+                    //wait(), notify(), notifyAll()
                     break;
+                case KeyEvent.VK_Z:
+                    int up = getWorld().getShip().getAccelU();
+                    int down = getWorld().getShip().getAccelD();
+                    int left = getWorld().getShip().getAccelL();
+                    int right = getWorld().getShip().getAccelR();
+
+                    System.out.printf("UP: %d (%b), DOWN: %d (%b), LEFT: %d (%b), RIGHT: %d (%b)\n", up, getWorld().getShip().isAcceleratingU, down, getWorld().getShip().isAcceleratingD, left, getWorld().getShip().isAcceleratingL, right, getWorld().getShip().isAcceleratingR);
             }
         }
     }
@@ -90,16 +102,16 @@ public class GameLoop implements KeyListener, Runnable {
     public synchronized void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                parent.getShip().isAcceleratingU = false;
+                world.getShip().isAcceleratingU = false;
                 break;
             case KeyEvent.VK_DOWN:
-                parent.getShip().isAcceleratingD = false;
+                world.getShip().isAcceleratingD = false;
                 break;
             case KeyEvent.VK_LEFT:
-                parent.getShip().isAcceleratingL = false;
+                world.getShip().isAcceleratingL = false;
                 break;
             case KeyEvent.VK_RIGHT:
-                parent.getShip().isAcceleratingR = false;
+                world.getShip().isAcceleratingR = false;
                 break;
             case KeyEvent.VK_SPACE:
                 spawningBullet = false;
@@ -113,8 +125,8 @@ public class GameLoop implements KeyListener, Runnable {
     public void run() {
         while (true) {
             try {
-                parent.revalidate();
-                parent.repaint();
+                world.revalidate();
+                world.repaint();
                 Thread.sleep(16, 666);
             } catch (InterruptedException e) {
                 e.printStackTrace();
