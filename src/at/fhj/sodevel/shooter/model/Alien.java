@@ -3,7 +3,7 @@ package at.fhj.sodevel.shooter.model;
 import java.awt.*;
 
 public class Alien extends NonControllableObjects {
-    private int health = 5;
+    private int health = 3;
 
     public Alien(int x, int y) {
         position = new Point(x, y);
